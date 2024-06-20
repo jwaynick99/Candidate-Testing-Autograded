@@ -11,9 +11,21 @@ let candidateAnswer = "";
 
 
 //TODO: Variables for Part 2
-let questions;
-let correctAnswers;
-let candidateAnswers;
+let questions = [
+  "Who was the first American woman in space? ",
+  "True or false: 5 kilometer == 5000 meters? ",
+  "(5 + 3)/2 * 10 = ? ",
+  "Given the array [8, 'Orbit', 'Trajectory', 45], what entry is at index 2? ",
+  "What is the minimum crew size for the ISS? "
+];
+let correctAnswers = [
+  "Sally Ride",
+  "true",
+  "40",
+  "Trajectory",
+  "3"
+];
+let candidateAnswers = [];
 
 
 function askForName() {
@@ -23,23 +35,35 @@ function askForName() {
 
 function askQuestion() {
   // TODO 1.2b: Ask candidate the question and assign the response as candidateAnswer //
-  candidateAnswer = input.question(question);
-
+  for (i in questions) {
+    candidateAnswers.push(input.question(questions[i]));
+  }
+  console.log(candidateAnswers);
 }
 
 function gradeQuiz(candidateAnswers) {
 
   // TODO 1.2c: Let the candidate know if they have answered the question correctly or incorrectly // 
-  if (candidateAnswer === correctAnswer){
-    console.log("Correct!")
-  } else {
-    console.log("Incorrect! Try again.")
+  for (i in candidateAnswers) {
+    console.log(
+      `Question: ${questions[i]}\n\nCandidate Answer: ${candidateAnswers[i]}\nCorrect Answer: ${correctAnswers[i]}\n`);
   }
 
 
-  let grade;  //TODO 3.2 use this variable to calculate the candidates score.
-
-
+  let grade = 0;  //TODO 3.2 use this variable to calculate the candidates score.
+  let numCorrectAnswers = 0;
+  for (i in candidateAnswers) {
+    if (candidateAnswers[i].toLowerCase() === correctAnswers[i].toLowerCase()) {
+      numCorrectAnswers += 1
+    }
+  }
+  console.log(numCorrectAnswers)
+  grade = numCorrectAnswers / questions.length * 100
+  if (grade >= 80) {
+    console.log(`Congrats! You've passed with a(n) ${grade}%`)
+  } else {
+    console.log(`Sorry, you scored ${grade}%. A score of 80% or higher is required to pass.`)
+  }
   return grade;
 }
 
